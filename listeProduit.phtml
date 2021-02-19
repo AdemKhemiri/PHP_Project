@@ -1,0 +1,187 @@
+<html>
+    <head>
+        <title>Liste des produits</title> 
+        <link 
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" 
+            rel="stylesheet" 
+            integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" 
+            crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        
+    </head>
+    <body>
+        <div id="nav-placeholder">
+
+        </div> 
+        <div class="container">
+        <?php if($isAdmin):?>
+                <button 
+                    class="btn btn-primary btn-margin" 
+                    onclick="location.href='AjoutProduit.php'">
+                Ajouter un produit</button>
+        <?php endif;?>
+            
+            <table border ='1' class="m">
+                <caption>Liste des produits</caption>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Prix</th>
+                        <th>Categorie</th>
+                        <th>Image</th>
+                    </tr>
+                    
+                </thead>
+                
+                <tbody>
+                    <?php  foreach ($res as $row) : ?>
+                        <tr>
+                            <td><?php echo $row['id']?></td>
+                            <td><?php echo $row['nom_produit']?></td>
+                            <td><?php echo $row['description']?></td>
+                            <td><?php echo $row['prix']?></td>
+                            <td><?php echo $row['nom']?></td>
+                            <td>
+                                <?php $imageURL = './img/'.$row['image'];?>
+                                <img src=<?=$imageURL ?> alt="" style="max-height:80px;"/>
+                            </td>
+                            <?php if($isAdmin):?>
+                                <td>
+                                    <button 
+                                        class="btn btn-primary" 
+                                        onclick="location.href='editerProduit.php?id=<?=$row['id']?>'"
+                                        >Editer</button>
+                                </td>
+                                <td>
+                                    <button 
+                                        class="btn btn-danger"
+                                        onclick="location.href='suppproduit.php?id=<?=$row['id']?>'"
+                                        >Supprimer</button>
+                                </td>
+                            <?php endif;?>
+                        </tr>
+                        <?php endforeach;?>
+                </tbody>
+            </table>
+        </div>
+        
+        
+    </body>
+</html>
+        
+<style>
+.btn-margin{
+    position: absolute;
+    margin-top: 6%;
+    margin-left: 65%;
+}
+.m {
+    position: absolute;
+    margin-top: 10%;
+}
+html,bodyheader,
+        .view {
+    height: 100%;
+    background-color:repeat-y;
+}
+
+body {
+	margin: 0;
+	background: linear-gradient(45deg, #49a09d, #5f2c82);
+	font-family: sans-serif;
+	font-weight: 100;
+}
+
+.container {
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+caption{
+    font-size: 20px;
+    caption-side:top;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px;
+}
+table {
+    position: relative;
+	left: 20%;  
+	width: 800px;
+	border-collapse: collapse;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+	padding: 15px;
+	background-color: rgba(255, 255, 255, 0.2);
+	color: #fff;
+}
+
+th {
+	text-align: left;
+}
+
+thead>tr>th {
+            background-color: #55608f;
+        }
+    
+
+tbody>tr:hover {
+			background-color: rgba(255, 255, 255, 0.3);
+		}
+	
+    tbody>td {
+        position: relative;
+    }
+    tbody>td:hover:before 
+			 {
+				content: "";
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: -9999px;
+				bottom: -9999px;
+				background-color: rgba(255, 255, 255, 0.2);
+				z-index: -1;
+			}
+
+@media (max-width: 740px) {
+  html,
+  body,
+  header,
+  .view {
+    height: 1000px;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 850px) {
+  html,
+  body,
+  header,
+  .view {
+    height: 650px;
+  }
+}
+@media (min-width: 800px) and (max-width: 850px) {
+  .navbar:not(.top-nav-collapse) {
+     background: #1C2331!important;
+  }
+}
+#nav-placeholder{
+    position: absolute;
+    height: 100px;
+    width: 100%;
+}
+</style>
+<script>
+$(function(){
+  $("#nav-placeholder").load("navBar.php");
+});
+</script>
